@@ -1,24 +1,21 @@
-const menuButton = document.querySelector('.menu-toggle');
+﻿const menuButton = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('.main-nav');
 
 function closeMenu() {
   menuButton?.setAttribute('aria-expanded', 'false');
   menuButton?.setAttribute('aria-label', 'Ouvrir le menu');
   mainNav?.classList.remove('is-open');
-  document.body.classList.remove('menu-open');
 }
 
 menuButton?.addEventListener('click', () => {
-  const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-expanded', String(!isOpen));
-  menuButton.setAttribute('aria-label', isOpen ? 'Ouvrir le menu' : 'Fermer le menu');
-  mainNav?.classList.toggle('is-open', !isOpen);
-  document.body.classList.toggle('menu-open', !isOpen);
+  const open = menuButton.getAttribute('aria-expanded') === 'true';
+  menuButton.setAttribute('aria-expanded', String(!open));
+  menuButton.setAttribute('aria-label', open ? 'Ouvrir le menu' : 'Fermer le menu');
+  mainNav?.classList.toggle('is-open', !open);
 });
-
 mainNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 720) closeMenu();
+  if (window.innerWidth > 700) closeMenu();
 });
 
 const year = document.querySelector('#year');
@@ -34,8 +31,23 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.intro-content, .intro-stamp, .projects-heading, .project-card, .approach-lead, .approach-point, .contact-content').forEach((element) => {
+  document.querySelectorAll('.projects-heading, .project-card, .contact-copy, .contact-cta').forEach((element) => {
     element.classList.add('reveal');
     observer.observe(element);
+  });
+}
+
+const heroVisual = document.querySelector('.hero-visual');
+if (heroVisual && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  heroVisual.addEventListener('pointermove', (event) => {
+    const bounds = heroVisual.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    heroVisual.style.setProperty('--pointer-x', (x * 12) + 'px');
+    heroVisual.style.setProperty('--pointer-y', (y * 12) + 'px');
+  });
+  heroVisual.addEventListener('pointerleave', () => {
+    heroVisual.style.setProperty('--pointer-x', '0px');
+    heroVisual.style.setProperty('--pointer-y', '0px');
   });
 }
