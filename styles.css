@@ -163,7 +163,7 @@ button { font: inherit; }
   .container { width:min(100% - 48px, 850px); }
   .hero { min-height:670px; grid-template-columns:1.03fr .97fr; padding-inline:5%; }
   .hero h1 { font-size:clamp(57px,8vw,76px); }
-  .hero-visual { width:120%; justify-self:center; margin-left:-5%; }
+  .hero-visual { width:100%; max-width:460px; justify-self:center; margin-left:0; }
   .project-row { grid-template-columns:75px 1fr 1fr 42px; gap:15px; }
   .row-orbit { right:9%; opacity:.38; }
   .closing { padding-inline:5%; }

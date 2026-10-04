@@ -22,7 +22,8 @@ const year = document.querySelector('#year');
 if (year) year.textContent = new Date().getFullYear();
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if ('IntersectionObserver' in window && !reduceMotion) {
+const directSectionLoad = ['#projets', '#vision', '#contact'].includes(window.location.hash);
+if ('IntersectionObserver' in window && !reduceMotion && !directSectionLoad) {
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -31,7 +32,7 @@ if ('IntersectionObserver' in window && !reduceMotion) {
       }
     });
   }, { threshold: 0.14 });
-  document.querySelectorAll('.projects-heading, .project-row, .closing-copy, .closing-link').forEach((element) => {
+  document.querySelectorAll('.projects-heading, .closing-copy, .closing-link').forEach((element) => {
     element.classList.add('reveal');
     revealObserver.observe(element);
   });
