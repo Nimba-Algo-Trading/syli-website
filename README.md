@@ -2,23 +2,23 @@
 
 Salut, c'est moi Taslima.
 
-Site vitrine monopage, statique et sans dépendance de compilation. L'identité visuelle joue sur une ambiance bleu glacier et des surfaces vitrées. La navigation mobile, les apparitions au défilement et les animations décoratives sont gérées en JavaScript natif et CSS.
+Site vitrine monopage, statique et sans dépendance de compilation. La direction visuelle utilise un fond profond, une typographie éditoriale et des accents vert lime. Les animations sont réalisées en CSS et JavaScript natif, avec prise en charge de la préférence de réduction des mouvements.
 
 ## Aperçu local
 
 Ouvrir `index.html` dans un navigateur. Pour servir le dossier localement, lancer `python -m http.server 8000` depuis ce répertoire puis ouvrir `http://localhost:8000`.
 
-## Projets documentés
+## Projets présentés
 
-- **Syli Change** — achat et vente de cryptomonnaies contre des monnaies locales, avec Mobile Money selon la disponibilité par pays.
-- **SyliPayments** — intégration de paiements crypto via checkout/API, SDK Node.js et webhooks.
-- **KAALIS** — transferts entre pays couverts et échanges entre opérateurs Mobile Money, selon les corridors ouverts.
+- **Syli Change** — achat et vente de cryptomonnaies contre des monnaies locales, selon les moyens disponibles.
+- **SyliPayments** — paiements crypto par checkout et API, avec SDK et webhooks.
+- **KAALIS** — transferts entre pays couverts et échanges entre opérateurs Mobile Money.
 
-Les fonctionnalités et disponibilités affichées sur ce site sont résumées à partir des pages publiques consultées. Elles peuvent évoluer selon les produits et les pays.
+Les fonctionnalités et disponibilités peuvent évoluer selon les produits et les corridors.
 
 ## Sources consultées
 
-- [Site Syli Change](https://sylipay.app/) et [fiche Google Play Syli Change](https://play.google.com/store/apps/details?id=com.sylipay.app)
+- [Site Syli Change](https://sylipay.app/) et [fiche Google Play](https://play.google.com/store/apps/details?id=com.sylipay.app)
 - [Documentation API SyliPayments](https://sylipayments.com/docs/api) et [présentation du SDK `syli-sdk`](https://socket.dev/npm/package/syli-sdk)
 - [Site KAALIS](https://kaalis.net/) et [fiche KAALIS Transfert](https://www.appbrain.com/app/kaalis-transfert/com.kaalis.app)
 - [Mentions légales SYLIPAY TECH](https://sylipay.app/mentions-legales)

@@ -8,10 +8,10 @@ function closeMenu() {
 }
 
 menuButton?.addEventListener('click', () => {
-  const open = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-expanded', String(!open));
-  menuButton.setAttribute('aria-label', open ? 'Ouvrir le menu' : 'Fermer le menu');
-  mainNav?.classList.toggle('is-open', !open);
+  const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+  menuButton.setAttribute('aria-expanded', String(!isOpen));
+  menuButton.setAttribute('aria-label', isOpen ? 'Ouvrir le menu' : 'Fermer le menu');
+  mainNav?.classList.toggle('is-open', !isOpen);
 });
 mainNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 window.addEventListener('resize', () => {
@@ -21,33 +21,47 @@ window.addEventListener('resize', () => {
 const year = document.querySelector('#year');
 if (year) year.textContent = new Date().getFullYear();
 
-if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const observer = new IntersectionObserver((entries, activeObserver) => {
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if ('IntersectionObserver' in window && !reduceMotion) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
-        activeObserver.unobserve(entry.target);
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('.projects-heading, .project-card, .contact-copy, .contact-cta').forEach((element) => {
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.projects-heading, .project-row, .closing-copy, .closing-link').forEach((element) => {
     element.classList.add('reveal');
-    observer.observe(element);
+    revealObserver.observe(element);
   });
 }
 
 const heroVisual = document.querySelector('.hero-visual');
-if (heroVisual && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+if (heroVisual && !reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
   heroVisual.addEventListener('pointermove', (event) => {
     const bounds = heroVisual.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    heroVisual.style.setProperty('--pointer-x', (x * 12) + 'px');
-    heroVisual.style.setProperty('--pointer-y', (y * 12) + 'px');
+    heroVisual.style.setProperty('--mx', (x * 12) + 'px');
+    heroVisual.style.setProperty('--my', (y * 12) + 'px');
   });
   heroVisual.addEventListener('pointerleave', () => {
-    heroVisual.style.setProperty('--pointer-x', '0px');
-    heroVisual.style.setProperty('--pointer-y', '0px');
+    heroVisual.style.setProperty('--mx', '0px');
+    heroVisual.style.setProperty('--my', '0px');
+  });
+
+  document.querySelectorAll('[data-tilt]').forEach((card) => {
+    card.addEventListener('pointermove', (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty('--rx', (-y * 1.4) + 'deg');
+      card.style.setProperty('--ry', (x * 1.4) + 'deg');
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+    });
   });
 }
